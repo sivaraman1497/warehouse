@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2')
 const bcryptjs = require('bcryptjs');
+const path = require('path')
+
 require('dotenv').config();
 
 const app = express();
@@ -16,12 +18,11 @@ const connection = mysql.createConnection({
 connection.connect()
 
 app.use(cors());
-
-// Middleware to parse JSON
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/message', (req, res) => {
-    res.json({ message: "Hello from Node.js!" });
+    res.json({ message: "Hello from Node.js!!" });
 });
 
 app.post('/createUser', (req, res) => {
@@ -64,7 +65,7 @@ app.post('/verifyUser', (req, res) => {
         {
             const {id, passwordDb, firstname, lastname} = results[0];
 
-            (bcryptjs.compareSync(password, passwordDb)) ?  res.json({dataVal : 'Login successful', id: id, firstname: firstname, lastname: lastname}): res.json({dataVal : 'Incorrect username or password'})
+            (bcryptjs.compareSync(password, passwordDb)) ? res.json({dataVal : 'success', id: id, firstname: firstname, lastname: lastname}): res.json({dataVal : 'Incorrect username or password'})
         }
         else
         {
