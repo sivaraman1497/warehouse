@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../Custom/UserContext';    //custom hook
 
 function LoginForm()
 {
@@ -7,6 +9,9 @@ function LoginForm()
     const [error, setError] = useState({emailError:'', passwordError:''});
     const [dataError, setDataError] = useState('');
     const [dataDb, setdataDb] = useState('');
+    const { setUsername } = useUser();  // custom hook
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(dataError === 0)
@@ -21,11 +26,21 @@ function LoginForm()
                 body: JSON.stringify({value})
             })
             .then((res) => res.json())
-            .then((data) => {setdataDb(data.dataVal)})
+            .then(
+                (data) => {
+                    if(data.dataVal == 'success')
+                    {
+                        console.log(data.firstname)
+                        setdataDb(data.dataVal)
+                        setUsername(data.firstname)
+                        navigate('/my'); 
+                    }
+                }
+            )
             .catch((err) => console.log(err))
         }
     }, [error, dataError])
-
+    
     function handleSubmit(e)
     {
         e.preventDefault();
@@ -78,6 +93,7 @@ function LoginForm()
             </form>
         </div>
     )
+    
 }
 
 export default LoginForm
