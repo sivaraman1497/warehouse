@@ -4,8 +4,8 @@
   "main": "server.js",
   "proxy": "http://localhost:5000",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server",
+    "dev": "node --watch server"
   },
   "keywords": [],
   "author": "",
