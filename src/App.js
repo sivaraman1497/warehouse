@@ -3,6 +3,7 @@ import LoginForm from "./Forms/LoginForm";
 import SignupForm from "./Forms/SignupForm"
 import Dashboard from "./Components/Dashboard";
 import ItemsList from "./Components/ItemsList"
+import CategoryCreationForm from "./Forms/CategoryCreationForm";
 // import Home from "./Components/Home";
 
 import { UserProvider } from './Custom/UserContext';
@@ -21,6 +22,7 @@ function App() {
                         <Route path="/signup" element={<SignupForm/>} />
                         <Route path="/my" element={<Dashboard />} />
                         <Route path="/itemsList" element={<ItemsList/>}/>
+                        <Route path="/categoriesList" element={<CategoryCreationForm/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>

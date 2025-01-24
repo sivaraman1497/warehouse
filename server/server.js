@@ -1,10 +1,19 @@
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql2')
-const bcryptjs = require('bcryptjs');
-const path = require('path')
+// const express = require('express');
+// const cors = require('cors');
+// const mysql = require('mysql2')
+// const bcryptjs = require('bcryptjs');
+// const path = require('path')
 
-require('dotenv').config();
+import express from "express"
+import cors from "cors"
+import mysql from "mysql"
+import bcryptjs from "bcryptjs"
+import path from "path"
+import categoriesRouter from "./categories.js"
+import dotenv from 'dotenv';
+dotenv.config();
+
+const port = process.env.PORT || 5000
 
 const app = express();
 
@@ -19,7 +28,7 @@ connection.connect()
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')))
+// app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/message', (req, res) => {
     res.json({ message: "Hello from Node.js!!" });
@@ -76,8 +85,9 @@ app.post('/verifyUser', (req, res) => {
     })
 })
 
+app.use('/', categoriesRouter)
+
 // Start the server
-const PORT = 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
