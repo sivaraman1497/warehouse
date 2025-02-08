@@ -111,7 +111,7 @@ function CategoryCreationForm()
                                         <td>{index+1}</td>
                                         <td>{category.name}</td>
                                         <td>
-                                            <FontAwesomeIcon icon={faPenToSquare} className="text-danger" onClick={() => {handleEdit(category.id, category.name)}}/>
+                                            <FontAwesomeIcon icon={faPenToSquare} className="text-secondary" onClick={() => {handleEdit(category.id, category.name)}}/>
                                             <FontAwesomeIcon icon={faTrash} className="text-danger col-2" onClick={() => {handleDelete(category.id)}}/>
                                         </td>
                                     </tr>
