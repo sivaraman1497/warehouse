@@ -4,6 +4,7 @@ import SignupForm from "./Forms/SignupForm"
 import Dashboard from "./Components/Dashboard";
 import ItemsList from "./Components/ItemsList"
 import CategoryCreationForm from "./Forms/CategoryCreationForm";
+import ItemsCreationForm from "./Forms/ItemsCreationForm";
 // import Home from "./Components/Home";
 
 import { UserProvider } from './Custom/UserContext';
@@ -21,7 +22,8 @@ function App() {
                         <Route path="/" element={<LoginForm/>} />
                         <Route path="/signup" element={<SignupForm/>} />
                         <Route path="/my" element={<Dashboard />} />
-                        <Route path="/itemsList" element={<ItemsList/>}/>
+                        <Route path="/itemsList1" element={<ItemsList/>}/>
+                        <Route path="/itemsList" element={<ItemsCreationForm/>}/>
                         <Route path="/categoriesList" element={<CategoryCreationForm/>}/>
                     </Routes>
                 </BrowserRouter>

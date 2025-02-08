@@ -9,7 +9,8 @@ import cors from "cors"
 import mysql from "mysql"
 import bcryptjs from "bcryptjs"
 import path from "path"
-import categoriesRouter from "./categories.js"
+import categoriesRouter from "./categories/categories.js"
+import itemsRouter from "./items/items.js"
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -86,6 +87,7 @@ app.post('/verifyUser', (req, res) => {
 })
 
 app.use('/', categoriesRouter)
+app.use('/', itemsRouter)
 
 // Start the server
 app.listen(port, () => {
