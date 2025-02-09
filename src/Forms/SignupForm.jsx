@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {Link, useNavigate} from 'react-router-dom'
 
 function SignupForm()
 {
@@ -9,6 +9,8 @@ function SignupForm()
     const [error, setError] = useState({firstnameError:'', lastnameError:'', emailError:'', branchError:'', passwordError:'', retypepasswordError:''})
     const [dataError, setDataError] = useState(1);
 
+    const navigate = useNavigate()
+    
     useEffect(() => {
         if(dataError === 0)
         {
@@ -22,7 +24,7 @@ function SignupForm()
                 body: JSON.stringify({value})
             })
             .then(res => res.json())
-            .then(data => setMessage(data.responseVal))
+            .then(data => setMessage(data.responseVal) && navigate('/'))
             .catch(err => console.log(err))
         }
     }, [error, dataError]);
@@ -95,7 +97,13 @@ function SignupForm()
                     <p>{message}</p>
                 </div>
 
-                <button type='submit' className='btn btn-primary' name='submit' id='submit'>Submit</button>
+                <div>
+                    <button type='submit' className='btn btn-primary' name='submit' id='submit'>Submit</button>
+                </div>
+                
+                <div className="mt-3">
+                    <span>Already have an account?</span> <Link to="/">Signin</Link>
+                </div>
             </div>    
         </form>
     )

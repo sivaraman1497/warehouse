@@ -119,13 +119,13 @@ function ItemsCreationForm()
                         </div>
 
                         <div className='col-3'>
-                            <label htmlFor="iteminput" className='m-auto w-100 text-start mb-2'>Item Nos</label>
+                            <label htmlFor="itemnos" className='m-auto w-100 text-start mb-2'>Item Nos</label>
                             <input type='number' name='itemnos' id='itemnos' className="form-control" autoComplete="off" value={data.nos} onChange={(e) => {setData((prev) => ({...prev, nos:e.target.value}))}}/>
                             <div className='my-2 text-start text-danger'></div>
                         </div>
 
                         <div className='col-1'>
-                            <label htmlFor="iteminput" className='m-auto w-100 text-start mb-4'></label>
+                            <label htmlFor="addItem" className='m-auto w-100 text-start mb-4'></label>
                             <button type="submit" name="addItem" id="addItem" className="btn btn-primary">+</button>
                         </div>
                     </div>

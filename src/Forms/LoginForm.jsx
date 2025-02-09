@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useUser } from '../Custom/UserContext';    //custom hook
 
 function LoginForm()
@@ -23,6 +23,7 @@ function LoginForm()
                 headers: {
                     'Content-Type' : 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({value})
             })
             .then((res) => res.json())
@@ -30,7 +31,6 @@ function LoginForm()
                 (data) => {
                     if(data.dataVal == 'success')
                     {
-                        console.log(data.firstname)
                         setdataDb(data.dataVal)
                         setUsername(data.firstname)
                         navigate('/my'); 
@@ -40,6 +40,20 @@ function LoginForm()
             .catch((err) => console.log(err))
         }
     }, [error, dataError])
+
+    useEffect(() => {
+        const url = 'http://localhost:5000/loggedin';
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            credentials: 'include',
+        })
+        .then(res => res.json())
+        .then((data) => (data.loggedIn) ? navigate('/my') : '')
+    }, [])
     
     function handleSubmit(e)
     {
@@ -88,7 +102,13 @@ function LoginForm()
                     <div className='text-danger mt-2' id='passwordError'>{error.passwordError}</div>
                 </div>
                 <div>
-                    <button type='submit' className='btn btn-primary mt-3' name='submit'>Submit</button>
+                    <button type='submit' className='btn btn-primary mt-3' name='submit'>Login</button>
+                </div>
+
+                <div className="mt-3">
+                    <span>
+                        Don't have an account? <Link to="/signup">Signup</Link>
+                    </span>
                 </div>
             </form>
         </div>

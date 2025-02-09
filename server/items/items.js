@@ -28,6 +28,7 @@ itemsRouter.post('/itemCreate', (req, res) => {
 })
 
 itemsRouter.post('/getItems', (req, res) => {
+    console.log(req.session)
     let getItems = "SELECT i.id, i.name, i.nos, c.name as categoryname, c.id as categoryid FROM items i LEFT JOIN categories c ON c.id = i.category ORDER BY c.name, i.name ASC";
 
     connection.query(getItems, (err, results) => {
