@@ -24,7 +24,7 @@ const app = express();
 
 app.use(session({
     secret: 'your-secret-key',  // Secret key to sign the session ID cookie
-    resave: false,              // Forces the session to be saved back to the store if unmodified
+    resave: true,              // Forces the session to be saved back to the store if unmodified
     saveUninitialized: false,   // Don't create session until something is stored
     cookie: {
       httpOnly: true,           // Make the cookie inaccessible to JavaScript
@@ -92,18 +92,19 @@ app.post('/createUser', (req, res) => {
 
 app.post('/verifyUser', (req, res) => {
     const {email, password} = req.body.value;
-    const sql = 'SELECT id, COUNT(*) AS userexists, password as passwordDb, firstname, lastname FROM users WHERE email=? GROUP BY id, password';
+    const sql = 'SELECT id, email as emailDb, COUNT(*) AS userexists, password as passwordDb, firstname, lastname FROM users WHERE email=? GROUP BY id, password';
 
     connection.query(sql, [email], (err, results) => {
 
         if(results.length > 0)
         {
-            const {id, passwordDb, firstname, lastname} = results[0];
+            const {id, emailDb, passwordDb, firstname, lastname} = results[0];
 
             if(bcryptjs.compareSync(password, passwordDb))
             {
+                console.log(req.session)
                 req.session.userid = id;
-                req.session.email = email;
+                req.session.email = emailDb;
                 req.session.firstname = firstname;
                 req.session.lastname = lastname;
     
@@ -130,7 +131,7 @@ app.post('/verifyUser', (req, res) => {
 app.get('/loggedin', (req, res) => {
     if(req.session.email)
     {
-        res.send({loggedIn: true, userid:req.session.userid, email: req.session.email, firstname: req.session.firstname, lastname: req.session.lastname})
+        res.send({loggedIn: true, admin:true, userid:req.session.userid, email: req.session.email, firstname: req.session.firstname, lastname: req.session.lastname})
     }
     else
     {
@@ -148,6 +149,7 @@ app.post('/logout', (req, res) => {
             }
             else
             {
+                res.clearCookie('connect.sid', { path: '/' });
                 res.json({loggedout: true})
             }
         })
