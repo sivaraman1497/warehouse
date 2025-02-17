@@ -53,6 +53,19 @@ itemsRouter.post('/itemEdit/:id', (req, res) => {
     })
 })
 
+itemsRouter.post('/getCategoryItems/:categoryid', (req, res) => {
+    const categoryId = req.params.categoryid;
+
+    let getCategoryItems = `SELECT id, name, nos FROM items WHERE category = ?`;
+
+    connection.query(getCategoryItems, [categoryId], (err, results) => {
+        if(err) throw new Error(err);
+
+        res.json({results: results})
+    })
+    
+})
+
 itemsRouter.delete('/deleteItem/:id', (req, res) => {
     let id = req.params.id;
 
