@@ -52,6 +52,7 @@ function LoginForm()
         })
         .then(res => res.json())
         .then((data) => (data.loggedIn) ? navigate('/my') : '')
+        .catch(err => console.log(err))
     }, [])
     
     function handleSubmit(e)

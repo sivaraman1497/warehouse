@@ -5,9 +5,22 @@ import { useUser } from '../Custom/UserContext';    // custom hook
 function AdminDashboard(props) {
     const navigate = useNavigate()
 
+    function BadRequest()
+    {
+        return (
+            <center>
+                <h1>Error - 404 </h1>
+                <h1>Please login to continue</h1>
+            </center>
+        )
+    }
+
+
     if(!props.username)
     {
-        return null;
+        return (
+            <BadRequest/>
+        )
     }
 
     else

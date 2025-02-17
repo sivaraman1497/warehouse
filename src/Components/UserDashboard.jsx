@@ -3,13 +3,34 @@ import { useNavigate, Link } from 'react-router-dom';
 
 function UserDashboard(props) {
     const navigate = useNavigate()
-    return (
-        <>
-            <h1>Welcome, {props.username}</h1>
-            <OrdersManagement/>
-            <LogoutButton navigate={navigate}/>
-        </>
-    )
+
+    function BadRequest()
+    {
+        return (
+            <center>
+                <h1>Error - 404 </h1>
+                <h1>Please login to continue</h1>
+            </center>
+        )
+    }
+
+    if(!props.username)
+    {
+        return (
+            <BadRequest/>
+        )
+    }
+
+    else
+    {
+        return (
+            <>
+                <h1>Welcome, {props.username}</h1>
+                <OrdersManagement/>
+                <LogoutButton navigate={navigate}/>
+            </>
+        )
+    }
 }
 
 function OrdersManagement()
