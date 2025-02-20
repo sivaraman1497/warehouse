@@ -7,7 +7,7 @@ function LoginForm()
 {
     const [value, setValue] = useState({email:'', password:''});
     const [error, setError] = useState({emailError:'', passwordError:''});
-    const { setUsername } = useUser();  // custom hook
+    // const { setUsername } = useUser();  // custom hook
 
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ function LoginForm()
             .then((res) => res.json())
             .then(
                 (data) => {
-                    if(data.dataVal == 'success')
+                    if(data.dataVal === 'success')
                     {
                         navigate('/my')
                     }
@@ -40,21 +40,6 @@ function LoginForm()
         }
     })
 
-    useEffect(() => {
-        const url = 'http://localhost:5000/loggedin';
-
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type' : 'application/json',
-            },
-            credentials: 'include',
-        })
-        .then(res => res.json())
-        .then((data) => (data.loggedIn) ? navigate('/my') : '')
-        .catch(err => console.log(err))
-    }, [])
-    
     function handleSubmit(e)
     {
         e.preventDefault();
