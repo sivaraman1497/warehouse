@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import LoginForm from "./Forms/LoginForm";
 import SignupForm from "./Forms/SignupForm"
 import AdminDashboard from "./Components/AdminDashboard";
-import ItemsList from "./Components/ItemsList"
+// import ItemsList from "./Components/ItemsList"
 import CategoryCreationForm from "./Forms/CategoryCreationForm";
 import ItemsCreationForm from "./Forms/ItemsCreationForm";
 import UserDashboard from "./Components/UserDashboard";
 import OrderCreationForm from "./Forms/OrderCreationForm";
 // import Home from "./Components/Home";
+import ErrorComponent from "./Components/Error"
 
 import { UserProvider } from './Custom/UserContext';
 
@@ -71,6 +72,7 @@ function App() {
                         <Route path="/itemsList" element={<ItemsCreationForm/>}/>
                         <Route path="/categoriesList" element={<CategoryCreationForm/>}/>
                         <Route path="/neworder" element={<OrderCreationForm/>}/>
+                        <Route path="*" element={<ErrorComponent/>} />
                     </Routes>
                 </BrowserRouter>
             </div>
