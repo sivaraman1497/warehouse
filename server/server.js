@@ -9,8 +9,11 @@ import cors from "cors"
 import mysql from "mysql"
 import bcryptjs from "bcryptjs"
 import path from "path"
+
 import categoriesRouter from "./categories/categories.js"
 import itemsRouter from "./items/items.js"
+import ordersRouter from "./orders/orders.js"
+
 import dotenv from 'dotenv';
 import session from 'express-session'
 import cookieParser from "cookie-parser"
@@ -158,6 +161,7 @@ app.post('/logout', (req, res) => {
 
 app.use('/', categoriesRouter)
 app.use('/', itemsRouter)
+app.use('/', ordersRouter)
 
 // Start the server
 app.listen(port, () => {
